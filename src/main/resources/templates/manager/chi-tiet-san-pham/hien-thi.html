@@ -1,0 +1,158 @@
+
+<!DOCTYPE html>
+<html lang="en" lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../../static/css/style.css">
+    <title>Quản lý dòng sản phẩm</title>
+</head>
+<body>
+<nav>
+    <ul>
+        <li><a href="/chi-tiet-san-pham/hien-thi">Sản phẩm chi tiết</a></li>
+        <li><a href="/mau-sac/hien-thi">Màu sắc</a></li>
+        <li><a href="/nha-san-xuat/hien-thi">NSX</a></li>
+        <li><a href="/san-pham/hien-thi">Sản phẩm</a></li>
+        <li><a href="/dong-san-pham/hien-thi">Dòng sản phẩm</a></li>
+        <li><a href="/nhan-vien/hien-thi">Nhân viên</a></li>
+        <li><a href="/cua-hang/hien-thi">Cửa hàng</a></li>
+        <li><a href="/chuc-vu/hien-thi">Chức vụ</a></li>
+    </ul>
+</nav>
+
+<nav>
+    <div class="logo">Quản lý dòng sản phẩm</div>
+</nav>
+<form action="/chi-tiet-san-pham/add" th:object="${ctsp}" method="post">
+    <table>
+        <tr>
+            <td>Tên sản phẩm</td>
+            <td>
+                <form:select path="sanPham">
+                    <c:forEach var="ten" items="${listSp}">
+                        <form:option value="${ten.id}">${ten.ten}</form:option>
+                    </c:forEach>
+                </form:select>
+            </td>
+        </tr>
+        <tr>
+            <td>Dòng sản phẩm</td>
+            <td>
+                <form:select path="dongSanPham">
+                    <c:forEach var="ten" items="${listDongSP}">
+                        <form:option value="${ten.id}">${ten.ten}</form:option>
+                    </c:forEach>
+                </form:select>
+            </td>
+        </tr>
+        <tr>
+            <td>Màu sắc</td>
+            <td>
+                <form:select path="mauSac">
+                    <c:forEach var="ten" items="${listMs}">
+                        <form:option value="${ten.id}">${ten.ten}</form:option>
+                    </c:forEach>
+                </form:select>
+            </td>
+        </tr>
+        <tr>
+            <td>Nhà sản xuất</td>
+            <td>
+                <form:select path="nhaSanXuat">
+                    <c:forEach var="ten" items="${listNsx}">
+                        <form:option value="${ten.id}">${ten.ten}</form:option>
+                    </c:forEach>
+                </form:select>
+            </td>
+        </tr>
+        <tr>
+            <td>Năm bảo hành</td>
+            <td><form:input type="number" path="namBH"/></td>
+            <td style="color: #ff0000"><form:errors path="namBH"></form:errors></td>
+        </tr>
+        <tr>
+            <td>Mô tả</td>
+            <td><form:input path="mota"/></td>
+            <td style="color: #ff0000"><form:errors path="mota"></form:errors></td>
+        </tr>
+        <tr>
+            <td>Số lượng tồn</td>
+            <td><form:input type="number" path="soLuongTon"/></td>
+            <td style="color: #ff0000"><form:errors path="soLuongTon"></form:errors></td>
+        </tr>
+        <tr>
+            <td>Gía nhập</td>
+            <td><form:input type="number" path="giaNhap"/></td>
+            <td style="color: #ff0000"><form:errors path="giaNhap"></form:errors></td>
+        </tr>
+        <tr>
+            <td>Gía bán</td>
+            <td><form:input path="giaBan"/></td>
+            <td style="color: #ff0000"><form:errors path="giaBan"></form:errors></td>
+        </tr>
+        <tr>
+            <td><form:button type="submit" class="button" >Add</form:button></td>
+        </tr>
+    </table>
+</form>
+
+<table>
+    <thead>
+    <td>STT</td>
+    <td>Tên</td>
+    <td>Dòng sản phẩm</td>
+    <td>Màu sắc</td>
+    <td>Nhà sản xuất</td>
+    <td>Năm bảo hành</td>
+    <td>Mô tả<</td>
+    <td>Số lượng tồn</td>
+    <td>Giá nhập</td>
+    <td>Giá bán</td>
+    <td>Action</td>
+    </thead>
+    <c:forEach var="ms" items="${list.content}" varStatus="stt" >
+        <tr>
+            <td>${stt.index}</td>
+            <td>${ms.sanPham.ten}</td>
+            <td>${ms.dongSanPham.ten}</td>
+            <td>${ms.mauSac.ten}</td>
+            <td>${ms.nhaSanXuat.ten}</td>
+            <td>${ms.namBH}</td>
+            <td>${ms.mota}</td>
+            <td>${ms.soLuongTon}</td>
+            <td>${ms.giaNhap}</td>
+            <td>${ms.giaBan}</td>
+            <td>
+                <a href="/chi-tiet-san-pham/delete/${ms.id}" class="button">Delete</a>
+                <a href="/chi-tiet-san-pham/detail/${ms.id}" class="button">Detail</a>
+                <a href="/chi-tiet-san-pham/view-update/${ms.id}" class="button">Update</a>
+            </td>
+        </tr>
+    </c:forEach>
+</table>
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        <c:forEach var="page" begin="0" end="${list.totalPages}">
+            <li class="page-item">
+                <a class="page-link" href="/chi-tiet-san-pham/hien-thi?page=${page}">${page}</a>
+            </li>
+        </c:forEach>
+    </ul>
+</nav>
+<footer>
+    <div class="footer-content">
+        <p>&copy; 2023 Quản lý sản phẩm. All rights reserved.</p>
+        <ul>
+            <li><a href="#">Liên hệ</a></li>
+            <li><a href="#">Điều khoản</a></li>
+            <li><a href="#">Bảo mật</a></li>
+        </ul>
+    </div>
+</footer>
+</body>
+</html>
+

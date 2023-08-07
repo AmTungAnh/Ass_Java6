@@ -1,0 +1,165 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../../static/css/style.css">
+    <title>Quản lý nhân viên</title>
+</head>
+<body>
+<nav>
+    <ul>
+        <li><a href="/chi-tiet-san-pham/hien-thi">Sản phẩm chi tiết</a></li>
+        <li><a href="/mau-sac/hien-thi">Màu sắc</a></li>
+        <li><a href="/nha-san-xuat/hien-thi">NSX</a></li>
+        <li><a href="/san-pham/hien-thi">Sản phẩm</a></li>
+        <li><a href="/dong-san-pham/hien-thi">Dòng sản phẩm</a></li>
+        <li><a href="/nhan-vien/hien-thi">Nhân viên</a></li>
+        <li><a href="/cua-hang/hien-thi">Cửa hàng</a></li>
+        <li><a href="/chuc-vu/hien-thi">Chức vụ</a></li>
+    </ul>
+</nav>
+
+<nav>
+    <div class="logo">Quản lý nhân viên</div>
+</nav>
+<form:form action="/nhan-vien/add" modelAttribute="nv" method="post">
+    <table>
+        <tr>
+            <td>Mã</td>
+            <td><form:input path="ma"/></td>
+            <td style="color: #ff0000"><form:errors path="ma"></form:errors></td>
+        </tr>
+        <tr>
+            <td>Tên</td>
+            <td><form:input path="ten"/></td>
+            <td style="color: #ff0000"><form:errors path="ten"></form:errors></td>
+        </tr>
+        <tr>
+            <td>Tên đệm</td>
+            <td><form:input path="tenDem"/></td>
+            <td style="color: #ff0000"><form:errors path="tenDem"></form:errors></td>
+        </tr>
+        <tr>
+            <td>Họ</td>
+            <td><form:input path="ho"/></td>
+            <td style="color: #ff0000"><form:errors path="ho"></form:errors></td>
+        </tr>
+        <tr>
+            <td>Giới tính</td>
+            <td>
+                <form:radiobutton path="gioiTinh" value="Nam"/>
+            </td>
+            <td>Nam</td>
+            <td>
+                <form:radiobutton path="gioiTinh" value="Nu"/>
+            </td>
+            <td>Nữ</td>
+        </tr>
+        <tr>
+            <td>Ngày sinh</td>
+            <td><form:input type="date" path="ngaySinh"/></td>
+        </tr>
+        <tr>
+            <td>Địa chỉ</td>
+            <td><form:input path="diaChi"/></td>
+            <td style="color: #ff0000"><form:errors path="diaChi"></form:errors></td>
+        </tr>
+        <tr>
+            <td>SĐT</td>
+            <td><form:input path="sdt"/></td>
+            <td style="color: #ff0000"><form:errors path="sdt"></form:errors></td>
+        </tr>
+        <tr>
+            <td>Mật khẩu</td>
+            <td><form:input path="matKhau"/></td>
+            <td style="color: #ff0000"><form:errors path="matKhau"></form:errors></td>
+        </tr>
+        <tr>
+            <td>Tên sản phẩm</td>
+            <td>
+                <form:select path="cuaHang">
+                    <c:forEach var="ten" items="${listCH}">
+                        <form:option value="${ten.id}">${ten.ten}</form:option>
+                    </c:forEach>
+                </form:select>
+            </td>
+        </tr>
+        <tr>
+            <td>Dòng sản phẩm</td>
+            <td>
+                <form:select path="chucVu">
+                    <c:forEach var="ten" items="${listCV}">
+                        <form:option value="${ten.id}">${ten.ten}</form:option>
+                    </c:forEach>
+                </form:select>
+            </td>
+        </tr>
+        <tr>
+            <td><form:button type="submit" class="button" >Add</form:button></td>
+        </tr>
+    </table>
+</form:form>
+
+<table>
+    <thead>
+    <td>STT</td>
+    <td>Tên</td>
+    <td>Tên đệm</td>
+    <td>Họ</td>
+    <td>Giới tính</td>
+    <td>Ngày sinh</td>
+    <td>Địa chỉ</td>
+    <td>SĐT</td>
+    <td>Mật khẩu</td>
+    <td>Cửa hàng</td>
+    <td>Chức vụ</td>
+    <td>Action</td>
+    </thead>
+    <c:forEach var="ms" items="${list.content}" varStatus="stt" >
+        <tr>
+            <td>${stt.index}</td>
+            <td>${ms.ma}</td>
+            <td>${ms.ten}</td>
+            <td>${ms.tenDem}</td>
+            <td>${ms.ho}</td>
+            <td>${ms.gioiTinh}</td>
+            <td>${ms.ngaySinh}</td>
+            <td>${ms.diaChi}</td>
+            <td>${ms.sdt}</td>
+            <td>${ms.matKhau}</td>
+            <td>${ms.cuaHang.ten}</td>
+            <td>${ms.chucVu.ten}</td>
+            <td>
+                <a href="/nhan-vien/delete/${ms.id}" class="button">Delete</a>
+                <a href="/nhan-vien/detail/${ms.id}" class="button">Detail</a>
+                <a href="/nhan-vien/view-update/${ms.id}" class="button">Update</a>
+            </td>
+        </tr>
+    </c:forEach>
+</table>
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        <c:forEach var="page" begin="0" end="${list.totalPages}">
+            <li class="page-item">
+                <a class="page-link" href="/nhan-vien/hien-thi?page=${page}">${page}</a>
+            </li>
+        </c:forEach>
+    </ul>
+</nav>
+<footer>
+    <div class="footer-content">
+        <p>&copy; 2023 Quản lý sản phẩm. All rights reserved.</p>
+        <ul>
+            <li><a href="#">Liên hệ</a></li>
+            <li><a href="#">Điều khoản</a></li>
+            <li><a href="#">Bảo mật</a></li>
+        </ul>
+    </div>
+</footer>
+</body>
+</html>
+

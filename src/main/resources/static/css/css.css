@@ -1,0 +1,206 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    font-weight: 600;
+    list-style: none;
+}
+
+body {
+    scroll-behavior: smooth;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: black;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 600px;
+    width: 100%;
+    height: 100px;
+}
+
+nav .logo {
+    font-size: 2rem;
+    background: -webkit-linear-gradient(
+            120deg,
+            hsl(318, 94%, 61%),
+            hsl(230, 69%, 51%)
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+ul {
+    text-transform: uppercase;
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0 35px;
+    font-size: 1.2rem;
+}
+
+nav a {
+    background: -webkit-linear-gradient(
+            120deg,
+            hsl(318, 94%, 61%),
+            hsl(239, 69%, 51%)
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-decoration: none;
+}
+
+nav a:hover {
+    border-bottom: 2px solid hsl(272, 69%, 51%);
+    transition: 1s;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0px 400px;
+}
+
+.content img {
+    width: 25rem;
+    transform: translateY(0px);
+    animation: float 6s ease-in-out infinite;
+}
+
+.introduction {
+    background: -webkit-linear-gradient(
+            120deg,
+            hsl(318, 94%, 61%),
+            hsl(239, 69%, 51%)
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    width: 300px;
+    height: 400px;
+    font-size: 1.3rem;
+    font-weight: 400;
+    margin-top: 200px;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-50px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+footer {
+    background: -webkit-linear-gradient(
+            120deg,
+            hsl(318, 94%, 61%),
+            hsl(239, 69%, 51%)
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    padding: 20px;
+    text-align: center;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-content p {
+    margin: 0;
+    font-weight: 600;
+}
+
+.footer-content ul {
+    display: flex;
+    list-style: none;
+    gap: 10px;
+}
+
+.footer-content ul li a {
+    background: -webkit-linear-gradient(
+            120deg,
+            hsl(318, 94%, 61%),
+            hsl(239, 69%, 51%)
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-decoration: none;
+}
+
+.footer-content ul li {
+    display: inline-block;
+}
+
+.footer-content ul li a {
+    background: -webkit-linear-gradient(
+            120deg,
+            hsl(318, 94%, 61%),
+            hsl(239, 69%, 51%)
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-decoration: none;
+}
+
+.styled-button {
+    display: inline-block;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    color: #ffffff;
+    background: linear-gradient(120deg, hsl(318, 94%, 61%), hsl(239, 69%, 51%));
+    border: 2px solid hsl(318, 94%, 61%);
+    border-radius: 4px;
+    transition: background 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+.styled-button:hover {
+    background: linear-gradient(120deg, hsl(272, 94%, 61%), hsl(239, 69%, 51%));
+    border-color: hsl(272, 94%, 61%);
+}
+.product-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.product-card img {
+    width: 200px;
+    margin-bottom: 10px;
+}
+
+.product-card .name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.product-card .price {
+    font-size: 1rem;
+    color: #888888;
+}
