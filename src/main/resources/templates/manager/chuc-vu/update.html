@@ -1,12 +1,11 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../../static/css/style.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/css.css}">
     <title>Quản lý cửa hàng</title>
 </head>
 <body>
@@ -26,21 +25,22 @@
 <nav>
     <div class="logo">Quản lý chức vụ</div>
 </nav>
-<form:form action="/chuc-vu/update/${ms.id}" modelAttribute="ms" method="post">
+<form action="/chuc-vu/update/{id}" th:object="${ms}" method="post">
     <table>
         <tr>
             <td>Mã chức vụ</td>
-            <td><form:input path="ma"/></td>
+            <td><input type="text" th:field="*{ma}" /></td>
         </tr>
         <tr>
             <td>Tên chức vụ</td>
-            <td><form:input path="ten"/></td>
+            <td><input type="text" th:field="*{ten}" /></td>
         </tr>
         <tr>
-            <td><form:button type="submit" class="button" >Update</form:button></td>
+            <td><button type="submit" class="button" >Update</button></td>
         </tr>
     </table>
-</form:form>
+</form>
+
 <footer>
     <div class="footer-content">
         <p>&copy; 2023 Quản lý sản phẩm. All rights reserved.</p>

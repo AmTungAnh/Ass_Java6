@@ -1,12 +1,10 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../../static/css/style.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/css.css}">
     <title>Quản lý nhà sản xuất</title>
 </head>
 <body>
@@ -26,53 +24,52 @@
 <nav>
     <div class="logo">Quản lý nhà sản xuất</div>
 </nav>
-<form:form action="/nha-san-xuat/add" modelAttribute="nsx1" method="get">
+<form action="/nha-san-xuat/add" th:object="${nsx1}" method="post">
     <table>
         <tr>
             <td>Mã nsx</td>
-            <td><form:input path="ma"/></td>
-            <td><form:errors path="ma"></form:errors></td>
+            <td><input type="text" th:field="*{ma}" /></td>
+            <td><span th:if="${#fields.hasErrors('ma')}" th:errors="*{ma}"></span></td>
         </tr>
         <tr>
             <td>Tên nsx</td>
-            <td><form:input path="ten"/></td>
-            <td><form:errors path="ten"></form:errors></td>
+            <td><input type="text" th:field="*{ten}" /></td>
+            <td><span th:if="${#fields.hasErrors('ten')}" th:errors="*{ten}"></span></td>
         </tr>
         <tr>
-            <td><form:button type="submit" class="button" >Add</form:button></td>
+            <td><button type="submit" class="button">Add</button></td>
         </tr>
     </table>
-</form:form>
+</form>
 
-<table>
-    <thead>
-    <td>STT</td>
-    <td>Mã</td>
-    <td>Tên</td>
-    <td>Action</td>
-    </thead>
-    <c:forEach var="nsx" items="${nsx.content}" varStatus="stt">
+<form action="/nha-san-xuat/add" th:object="${nsx1}" method="post">
+    <table>
         <tr>
-            <td>${stt.index}</td>
-            <td>${nsx.ma}</td>
-            <td>${nsx.ten}</td>
-            <td>
-                <a href="/nha-san-xuat/delete/${nsx.id}" class="button">Delete</a>
-                <a href="/nha-san-xuat/detail/${nsx.id}" class="button">Detail</a>
-                <a href="/nha-san-xuat/view-update/${nsx.id}" class="button">Update</a>
-            </td>
+            <td>Mã nsx</td>
+            <td><input type="text" th:field="*{ma}" /></td>
+            <td><span th:if="${#fields.hasErrors('ma')}" th:errors="*{ma}"></span></td>
         </tr>
-    </c:forEach>
-</table>
+        <tr>
+            <td>Tên nsx</td>
+            <td><input type="text" th:field="*{ten}" /></td>
+            <td><span th:if="${#fields.hasErrors('ten')}" th:errors="*{ten}"></span></td>
+        </tr>
+        <tr>
+            <td><button type="submit" class="button">Add</button></td>
+        </tr>
+    </table>
+</form>
+
 <nav aria-label="Page navigation example">
     <ul class="pagination">
-        <c:forEach var="page" begin="0" end="${nsx.totalPages}">
+        <th:block th:each="page : ${#numbers.sequence(0, nsx.totalPages - 1)}">
             <li class="page-item">
-                <a class="page-link" href="/mau-sac/hien-thi?page=${page}">${page}</a>
+                <a class="page-link" th:href="@{/nha-san-xuat/hien-thi(page=${page})}" th:text="${page}"></a>
             </li>
-        </c:forEach>
+        </th:block>
     </ul>
 </nav>
+
 <footer>
     <div class="footer-content">
         <p>&copy; 2023 Quản lý sản phẩm. All rights reserved.</p>

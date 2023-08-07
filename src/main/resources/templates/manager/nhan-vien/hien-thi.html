@@ -1,12 +1,10 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../../static/css/style.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/css.css}">
     <title>Quản lý nhân viên</title>
 </head>
 <body>
@@ -26,130 +24,136 @@
 <nav>
     <div class="logo">Quản lý nhân viên</div>
 </nav>
-<form:form action="/nhan-vien/add" modelAttribute="nv" method="post">
+<form action="/nhan-vien/add" th:object="${nv}" method="post">
     <table>
         <tr>
             <td>Mã</td>
-            <td><form:input path="ma"/></td>
-            <td style="color: #ff0000"><form:errors path="ma"></form:errors></td>
+            <td><input type="text" th:field="*{ma}" /></td>
+            <td style="color: #ff0000" th:errors="*{ma}"></td>
         </tr>
         <tr>
             <td>Tên</td>
-            <td><form:input path="ten"/></td>
-            <td style="color: #ff0000"><form:errors path="ten"></form:errors></td>
+            <td><input type="text" th:field="*{ten}" /></td>
+            <td style="color: #ff0000" th:errors="*{ten}"></td>
         </tr>
         <tr>
             <td>Tên đệm</td>
-            <td><form:input path="tenDem"/></td>
-            <td style="color: #ff0000"><form:errors path="tenDem"></form:errors></td>
+            <td><input type="text" th:field="*{tenDem}" /></td>
+            <td style="color: #ff0000" th:errors="*{tenDem}"></td>
         </tr>
         <tr>
             <td>Họ</td>
-            <td><form:input path="ho"/></td>
-            <td style="color: #ff0000"><form:errors path="ho"></form:errors></td>
+            <td><input type="text" th:field="*{ho}" /></td>
+            <td style="color: #ff0000" th:errors="*{ho}"></td>
         </tr>
         <tr>
             <td>Giới tính</td>
             <td>
-                <form:radiobutton path="gioiTinh" value="Nam"/>
+                <input type="radio" th:field="*{gioiTinh}" value="Nam" />
             </td>
             <td>Nam</td>
             <td>
-                <form:radiobutton path="gioiTinh" value="Nu"/>
+                <input type="radio" th:field="*{gioiTinh}" value="Nu" />
             </td>
             <td>Nữ</td>
         </tr>
         <tr>
             <td>Ngày sinh</td>
-            <td><form:input type="date" path="ngaySinh"/></td>
+            <td><input type="date" th:field="*{ngaySinh}" /></td>
         </tr>
         <tr>
             <td>Địa chỉ</td>
-            <td><form:input path="diaChi"/></td>
-            <td style="color: #ff0000"><form:errors path="diaChi"></form:errors></td>
+            <td><input type="text" th:field="*{diaChi}" /></td>
+            <td style="color: #ff0000" th:errors="*{diaChi}"></td>
         </tr>
         <tr>
             <td>SĐT</td>
-            <td><form:input path="sdt"/></td>
-            <td style="color: #ff0000"><form:errors path="sdt"></form:errors></td>
+            <td><input type="text" th:field="*{sdt}" /></td>
+            <td style="color: #ff0000" th:errors="*{sdt}"></td>
         </tr>
         <tr>
             <td>Mật khẩu</td>
-            <td><form:input path="matKhau"/></td>
-            <td style="color: #ff0000"><form:errors path="matKhau"></form:errors></td>
+            <td><input type="password" th:field="*{matKhau}" /></td>
+            <td style="color: #ff0000" th:errors="*{matKhau}"></td>
         </tr>
         <tr>
             <td>Tên sản phẩm</td>
             <td>
-                <form:select path="cuaHang">
-                    <c:forEach var="ten" items="${listCH}">
-                        <form:option value="${ten.id}">${ten.ten}</form:option>
-                    </c:forEach>
-                </form:select>
+                <select th:field="*{cuaHang}">
+                    <option th:each="ten : ${listCH}" th:value="${ten.id}" th:text="${ten.ten}"></option>
+                </select>
             </td>
         </tr>
         <tr>
             <td>Dòng sản phẩm</td>
             <td>
-                <form:select path="chucVu">
-                    <c:forEach var="ten" items="${listCV}">
-                        <form:option value="${ten.id}">${ten.ten}</form:option>
-                    </c:forEach>
-                </form:select>
+                <select th:field="*{chucVu}">
+                    <option th:each="ten : ${listCV}" th:value="${ten.id}" th:text="${ten.ten}"></option>
+                </select>
             </td>
         </tr>
         <tr>
-            <td><form:button type="submit" class="button" >Add</form:button></td>
+            <td><button type="submit" class="button">Add</button></td>
         </tr>
     </table>
-</form:form>
+</form>
 
 <table>
     <thead>
-    <td>STT</td>
-    <td>Tên</td>
-    <td>Tên đệm</td>
-    <td>Họ</td>
-    <td>Giới tính</td>
-    <td>Ngày sinh</td>
-    <td>Địa chỉ</td>
-    <td>SĐT</td>
-    <td>Mật khẩu</td>
-    <td>Cửa hàng</td>
-    <td>Chức vụ</td>
-    <td>Action</td>
+    <tr>
+        <td>STT</td>
+        <td>Tên</td>
+        <td>Tên đệm</td>
+        <td>Họ</td>
+        <td>Giới tính</td>
+        <td>Ngày sinh</td>
+        <td>Địa chỉ</td>
+        <td>SĐT</td>
+        <td>Mật khẩu</td>
+        <td>Cửa hàng</td>
+        <td>Chức vụ</td>
+        <td>Action</td>
+    </tr>
     </thead>
-    <c:forEach var="ms" items="${list.content}" varStatus="stt" >
-        <tr>
-            <td>${stt.index}</td>
-            <td>${ms.ma}</td>
-            <td>${ms.ten}</td>
-            <td>${ms.tenDem}</td>
-            <td>${ms.ho}</td>
-            <td>${ms.gioiTinh}</td>
-            <td>${ms.ngaySinh}</td>
-            <td>${ms.diaChi}</td>
-            <td>${ms.sdt}</td>
-            <td>${ms.matKhau}</td>
-            <td>${ms.cuaHang.ten}</td>
-            <td>${ms.chucVu.ten}</td>
-            <td>
-                <a href="/nhan-vien/delete/${ms.id}" class="button">Delete</a>
-                <a href="/nhan-vien/detail/${ms.id}" class="button">Detail</a>
-                <a href="/nhan-vien/view-update/${ms.id}" class="button">Update</a>
-            </td>
-        </tr>
-    </c:forEach>
+    <tbody>
+    <tr th:each="nv, stt : ${list.content}">
+        <td th:text="${stt.index}"></td>
+        <td th:text="${nv.ma}"></td>
+        <td th:text="${nv.ten}"></td>
+        <td th:text="${nv.tenDem}"></td>
+        <td th:text="${nv.ho}"></td>
+        <td th:text="${nv.gioiTinh}"></td>
+        <td th:text="${nv.ngaySinh}"></td>
+        <td th:text="${nv.diaChi}"></td>
+        <td th:text="${nv.sdt}"></td>
+        <td th:text="${nv.matKhau}"></td>
+        <td th:text="${nv.cuaHang.ten}"></td>
+        <td th:text="${nv.chucVu.ten}"></td>
+        <td>
+            <a th:href="@{/nhan-vien/delete/{id}(id=${nv.id})}" class="button">Delete</a>
+            <a th:href="@{/nhan-vien/detail/{id}(id=${nv.id})}" class="button">Detail</a>
+            <a th:href="@{/nhan-vien/view-update/{id}(id=${nv.id})}" class="button">Update</a>
+        </td>
+    </tr>
+    </tbody>
 </table>
+
 <nav aria-label="Page navigation example">
     <ul class="pagination">
-        <c:forEach var="page" begin="0" end="${list.totalPages}">
+        <li class="page-item">
+            <a class="page-link" th:href="@{/nhan-vien/hien-thi(page=0)}">First</a>
+        </li>
+        <c:forEach var="page" begin="0" end="${list.totalPages-1}">
             <li class="page-item">
-                <a class="page-link" href="/nhan-vien/hien-thi?page=${page}">${page}</a>
+                <a class="page-link" th:href="@{/nhan-vien/hien-thi(page=${page})}" th:text="${page}+1"></a>
             </li>
         </c:forEach>
+        <li class="page-item">
+            <a class="page-link" th:href="@{/nhan-vien/hien-thi(page=${list.totalPages-1})}">Last</a>
+        </li>
     </ul>
 </nav>
+
 <footer>
     <div class="footer-content">
         <p>&copy; 2023 Quản lý sản phẩm. All rights reserved.</p>
